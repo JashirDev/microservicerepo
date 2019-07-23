@@ -26,7 +26,7 @@ public class ClassRoom {
 	@Column(name="class_name")
 	private String className;
 	
-	@Column(name="student_reference")
-	private Student studentReference;
+	//@Column(name="student_reference")
+	//private Student studentReference;
 
 }

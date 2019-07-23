@@ -9,6 +9,6 @@ public interface ClassRoomService {
 	
 	public ClassRoom saveClass(ClassRoom classRoom);
 	public List<ClassRoom> getClassRooms();
-	public ClassRoom getClassRoom(ClassRoom classRoom);
-	void deleteClassRoom(ClassRoom classRoom);
+	public ClassRoom getClassRoom(int classRoom);
+	void deleteClassRoom(int classRoom);
 }

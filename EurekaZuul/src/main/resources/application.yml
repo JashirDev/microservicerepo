@@ -21,9 +21,12 @@ zuul:
     student-service:
       path: /student-api/**
       service-id: STUDENT-SERVICE
-    feign-client:
-      path: /feign-empleado/**  
-      service-id: FEIGN-CLIENT   
-  ribbonIsolationStrategy: THREAD 
+    class-service:
+      path: /class-api/**  
+      service-id: CLASS-SERVICE    
+  ribbon-isolation-strategy: THREAD 
+  host:
+    connect-timeout-millis: 2000
+    socket-timeout-millis: 2000
        
 

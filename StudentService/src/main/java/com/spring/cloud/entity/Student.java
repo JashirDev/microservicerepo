@@ -42,4 +42,7 @@ public class Student {
 	@JsonFormat(pattern = "YYYY-MM-dd")
 	private Date dateOfBirth;
 
+	
+	@Column(name = "class_id")
+	private int classId;
 }
