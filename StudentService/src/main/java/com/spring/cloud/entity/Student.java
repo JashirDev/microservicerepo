@@ -43,6 +43,4 @@ public class Student {
 	private Date dateOfBirth;
 
 	
-	@Column(name = "class_id")
-	private int classId;
 }

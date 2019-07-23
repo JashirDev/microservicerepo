@@ -6,9 +6,8 @@ import com.spring.cloud.entity.ClassRoom;
 
 public interface ClassRoomService {
 	
-	
-	public ClassRoom saveClass(ClassRoom classRoom);
-	public List<ClassRoom> getClassRooms();
-	public ClassRoom getClassRoom(int classRoom);
+	ClassRoom saveClass(ClassRoom classRoom);
+	List<ClassRoom> getClassRooms();
+	ClassRoom getClassRoom(int classRoom);
 	void deleteClassRoom(int classRoom);
 }
