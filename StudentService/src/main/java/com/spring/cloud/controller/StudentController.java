@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,8 @@ public class StudentController {
 		return studenService.getStudents();
 	}
 	
-	public Student getStudent(int studentId) {
+	@GetMapping("get/student/{studentId}")
+	public Student getStudent(@PathVariable(name = "studentId") int studentId) {
 		return studenService.getStudent(studentId);
 	}
 	
