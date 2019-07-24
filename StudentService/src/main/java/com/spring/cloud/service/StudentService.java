@@ -7,9 +7,9 @@ import com.spring.cloud.entity.Student;
 
 public interface StudentService {
 	
-	public Student saveStudent(Student student);
-	public List<Student> getStudents();
-	public Student getStudent(int studentId);
+	 Student saveStudent(Student student);
+	 List<Student> getStudents();
+	 Student getStudent(int studentId);
 	void deleteStudent(int studentsId);
 
 }

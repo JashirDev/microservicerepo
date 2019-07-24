@@ -31,7 +31,7 @@ public class ClassStudent {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("studentRefrence")
-	@JoinColumn(name = "studentRefrence")
+	@JoinColumn(name = "class_id")
 	private ClassRoom classRoomReference;
 	
 
