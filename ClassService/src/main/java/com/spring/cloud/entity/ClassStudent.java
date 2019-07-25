@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,9 +23,11 @@ public class ClassStudent {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="class_student_id")
+	@NotNull(message = "Ingrese datos")
 	private int classStudentId;
 	
 	@Column(name="student_id")
+	@NotNull(message = "Ingrese datos")
 	private int studentId;
 	
 	//relation
@@ -32,6 +35,7 @@ public class ClassStudent {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("studentRefrence")
 	@JoinColumn(name = "class_id")
+	@NotNull(message = "Ingrese datos")
 	private ClassRoom classRoomReference;
 	
 

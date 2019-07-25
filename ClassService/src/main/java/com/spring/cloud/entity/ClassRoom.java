@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -26,17 +27,18 @@ public class ClassRoom {
 	@Column(name="class_id")
 	private int classId;
 	
+	@NotNull(message = "Ingrese datos")
 	@Column(name="class_code")
 	private int classCode;
 	
+	@NotNull(message = "Ingrese datos")
 	@Column(name="class_name")
 	private String className;
 	
-	//@Column(name="student_reference")
-	//private Student studentReference;
+	
 	
 	//relation
-	
+	@NotNull(message = "Ingrese datos")
 	@OneToMany(mappedBy = "classRoomReference",fetch = FetchType.LAZY)
 	@JsonIgnoreProperties("classRoomReference")
 	private List<ClassStudent> studentRefrence;
