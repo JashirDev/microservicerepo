@@ -59,7 +59,9 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 
 	@Override
 	public void deleteClassRoom(int classID) {
+		
 		classRoomDao.deleteById(classID);
+		
 		
 	}
 
