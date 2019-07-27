@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.spring.cloud.entity.ClassRoom;
 import com.spring.cloud.feign.ClassStudentClient;
+import com.spring.cloud.service.ClassFallbackService;
 import com.spring.cloud.service.ClassRoomService;
 import com.spring.cloud.service.ClassStudentService;
 
@@ -26,7 +28,11 @@ public class ClassRoomController {
 	@Autowired
 	private ClassStudentService classStudentService;
 	
+	@Autowired
+	private ClassFallbackService classFallbackService;
+	
 	//POST METHODS
+	@HystrixCommand(fallbackMethod = "postFallbackClassRoom")
 	@PostMapping
 	public ClassRoom postClassRooom(@RequestBody ClassRoom classRoom) {
 		return classRoomService.saveClass(classRoom);
@@ -38,13 +44,17 @@ public class ClassRoomController {
 		return classRoomService.getClassRooms();
 	}
 	
+	
+	
 	@GetMapping("/{classId}")
+	//@HystrixCommand(fallbackMethod = "getFallbackClassRoom")//proxy error
 	public ClassRoom getClassRooom(@PathVariable(name ="classId" ) int classId) {
 		return classRoomService.getClassRoom(classId);
 	}
 	
 	//GET METHOD THAT CONSUMES STUDNET SERVICE
 	@GetMapping("/students/{classId}")
+	//@HystrixCommand(fallbackMethod = "getClassAndStudentFallback")
 	public ClassStudentClient getClassAndStudents(@PathVariable(name ="classId" )  int classId) {
 		
 		return classStudentService.getClassStudent(classId);
@@ -59,5 +69,24 @@ public class ClassRoomController {
 	}
 	
 	
+	//FALBACK
+	
+	public ClassRoom postFallbackClassRoom(ClassRoom classRoom) {
+		
+		return classFallbackService.getClassFallback();
+	}
+	
+	/*
+	 * proxy error
+	public ClassRoom getFallbackClassRoom (int classRoomId) {
+		
+		return classFallbackService.getClassFallback();
+	}*/
+	
+	/*
+	getClassAndStudentFallback ( int classId) {
+		
+		return classStudentService.getClassStudent(classId);
+	}*/
 
 }

@@ -13,6 +13,7 @@ import com.spring.cloud.entity.ClassStudent;
 import com.spring.cloud.feign.ClassStudentClient;
 import com.spring.cloud.feign.Student;
 import com.spring.cloud.feign.service.FeignService;
+import com.spring.cloud.service.ClassFallbackService;
 import com.spring.cloud.service.ClassRoomService;
 import com.spring.cloud.service.ClassStudentService;
 
@@ -20,11 +21,12 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentService{
+public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentService,ClassFallbackService{
 
 	private ClassRoomDao classRoomDao;
 
 	private ClassStudentRoomDao classStudentRoomDao;
+	
 	private FeignService feignService;
 
 	@Override
@@ -95,6 +97,26 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 		
 		
 		return client;
+	}
+
+	//FALLBACK 
+	@Override
+	public ClassRoom getClassFallback() {
+		ClassRoom classFalback = new ClassRoom();
+		List<ClassStudent> studentIdFallback =new ArrayList<ClassStudent>();
+		
+		ClassStudent student= new ClassStudent();
+		student.setStudentId(0);
+		student.setClassStudentId(0);
+		student.setClassRoomReference(classFalback);
+		studentIdFallback.add(student);
+		
+		
+		classFalback.setClassCode(0);
+		classFalback.setClassId(0);
+		classFalback.setClassName("class Falback");
+		classFalback.setStudentRefrence(studentIdFallback);
+		return classFalback;
 	}
 	
 }
