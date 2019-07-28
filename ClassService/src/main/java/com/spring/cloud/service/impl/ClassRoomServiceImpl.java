@@ -3,9 +3,8 @@ package com.spring.cloud.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import com.spring.cloud.dao.ClassRoomDao;
 import com.spring.cloud.dao.ClassStudentRoomDao;
 import com.spring.cloud.entity.ClassRoom;
@@ -70,8 +69,8 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 	@Override
 	public ClassStudentClient getClassStudent(int classId) {
 		// TODO Auto-generated method stub
-		ClassRoom roomclient = classRoomDao.findById(classId).get();
 		
+		ClassRoom roomclient = classRoomDao.getClassById(classId);
 		//list if students ids
 		List<Integer>studentsId = classStudentRoomDao.getIds(classId);
 		//list of all student
@@ -91,17 +90,22 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 	
 		
 		ClassStudentClient client=new ClassStudentClient();
-		client.setClasRoom(roomclient);
+		client.setClassCode(roomclient.getClassCode());
+		client.setClassId(roomclient.getClassId());
+		client.setClassName(roomclient.getClassName());
 		client.setStudent(classStudentList);
 		
 		
 		
 		return client;
 	}
-
-	//FALLBACK 
+	
+	
+	//FALLBACK TO GET CLASSES WITH STUDENTS
 	@Override
-	public ClassRoom getClassFallback() {
+	public ClassStudentClient getclassAndStudentFallback() {
+		// TODO Auto-generated method stub
+		ClassStudentClient classStudentFalback= new ClassStudentClient();
 		ClassRoom classFalback = new ClassRoom();
 		List<ClassStudent> studentIdFallback =new ArrayList<ClassStudent>();
 		
@@ -109,14 +113,18 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 		student.setStudentId(0);
 		student.setClassStudentId(0);
 		student.setClassRoomReference(classFalback);
-		studentIdFallback.add(student);
-		
+		studentIdFallback.add(student);		
 		
 		classFalback.setClassCode(0);
 		classFalback.setClassId(0);
 		classFalback.setClassName("class Falback");
-		classFalback.setStudentRefrence(studentIdFallback);
-		return classFalback;
+
+		classStudentFalback.setClassCode(classFalback.getClassCode());
+		classStudentFalback.setClassId(classFalback.getClassId());
+		classStudentFalback.setClassName(classFalback.getClassName());
+		classStudentFalback.setStudent(null);
+	
+		return classStudentFalback;
 	}
 	
 }

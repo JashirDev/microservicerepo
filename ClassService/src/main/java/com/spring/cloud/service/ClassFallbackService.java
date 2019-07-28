@@ -1,10 +1,12 @@
 package com.spring.cloud.service;
 
-import com.spring.cloud.entity.ClassRoom;
+
+import com.spring.cloud.feign.ClassStudentClient;
 
 public interface ClassFallbackService {
 	
 	
-	ClassRoom getClassFallback();
+	
+	ClassStudentClient getclassAndStudentFallback();
 
 }

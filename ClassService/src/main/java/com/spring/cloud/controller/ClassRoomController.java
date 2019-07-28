@@ -32,7 +32,6 @@ public class ClassRoomController {
 	private ClassFallbackService classFallbackService;
 	
 	//POST METHODS
-	@HystrixCommand(fallbackMethod = "postFallbackClassRoom")
 	@PostMapping
 	public ClassRoom postClassRooom(@RequestBody ClassRoom classRoom) {
 		return classRoomService.saveClass(classRoom);
@@ -46,15 +45,14 @@ public class ClassRoomController {
 	
 	
 	
-	@GetMapping("/{classId}")
-	//@HystrixCommand(fallbackMethod = "getFallbackClassRoom")//proxy error
+	@GetMapping("/{classId}")	
 	public ClassRoom getClassRooom(@PathVariable(name ="classId" ) int classId) {
 		return classRoomService.getClassRoom(classId);
 	}
 	
 	//GET METHOD THAT CONSUMES STUDNET SERVICE
 	@GetMapping("/students/{classId}")
-	//@HystrixCommand(fallbackMethod = "getClassAndStudentFallback")
+	@HystrixCommand(fallbackMethod = "getClassAndStudentFallback")
 	public ClassStudentClient getClassAndStudents(@PathVariable(name ="classId" )  int classId) {
 		
 		return classStudentService.getClassStudent(classId);
@@ -69,24 +67,14 @@ public class ClassRoomController {
 	}
 	
 	
-	//FALBACK
+
 	
-	public ClassRoom postFallbackClassRoom(ClassRoom classRoom) {
+
+	//FALBACK TO CLASS WITH STUDENT
+	
+	public ClassStudentClient getClassAndStudentFallback ( int classId) {
 		
-		return classFallbackService.getClassFallback();
+		return classFallbackService.getclassAndStudentFallback();
 	}
-	
-	/*
-	 * proxy error
-	public ClassRoom getFallbackClassRoom (int classRoomId) {
-		
-		return classFallbackService.getClassFallback();
-	}*/
-	
-	/*
-	getClassAndStudentFallback ( int classId) {
-		
-		return classStudentService.getClassStudent(classId);
-	}*/
 
 }
