@@ -31,8 +31,8 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 	@Override
 	public ClassRoom saveClass(ClassRoom classRoom) {
 	
-		// TODO Auto-generated method stub
-		ClassRoom room = classRoomDao.save(classRoom);//save in the data base
+		//SAVE INTO DATABASE
+		ClassRoom room = classRoomDao.save(classRoom);
 		
 		
 		classRoom.getStudentRefrence()
@@ -61,7 +61,13 @@ public class ClassRoomServiceImpl implements ClassRoomService, ClassStudentServi
 	@Override
 	public void deleteClassRoom(int classID) {
 		
+		ClassRoom room = classRoomDao.findById(classID).get();
+		//DELETE CALSSSTUDENT FROM DATABASE
+		room.getStudentRefrence()
+	    .forEach(classStudent -> classStudentRoomDao.deleteById(classStudent.getClassStudentId()));
+		//DELETE CLASS FROM DATABASE
 		classRoomDao.deleteById(classID);
+		
 		
 		
 	}

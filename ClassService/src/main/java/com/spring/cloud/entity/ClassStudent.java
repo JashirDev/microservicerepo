@@ -1,6 +1,6 @@
 package com.spring.cloud.entity;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +32,7 @@ public class ClassStudent {
 	
 	//relation
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JsonIgnoreProperties("studentRefrence")
 	@JoinColumn(name = "class_id")
 	@NotNull(message = "Ingrese datos")
